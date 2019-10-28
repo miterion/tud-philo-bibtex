@@ -11,5 +11,12 @@ Im Dokument wird das Paket dann ganz normal mit `usepackage` geladen. Zitiert wi
 \usepackage{philo}
 [...]
 
-\parencite[Seite 5]{2011apologie}
+Test \parencite[Seite 5]{2011apologie}
+
+\printbibliography
 ```
+
+Dies erzeugt die folgende Sigle:
+![sigle](.github/sigle.png)
+und folgendes Literaturverzeichnis:
+![literaturverzeichnis](.github/bibliography.png)
