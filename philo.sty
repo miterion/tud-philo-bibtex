@@ -17,10 +17,11 @@
 
 \ProvidesPackage{philo}
 
-\RequirePackage[style=philosophy-classic,publocformat=locpubyear]{biblatex}
+\RequirePackage[style=philosophy-classic,publocformat=locpubyear,annotation,dashed=false]{biblatex}
 
 \DefineBibliographyStrings{ngerman}{%
-edition  = {Auflage}
+edition  = {Auflage},
+urlseen = {Zugriff am},
 }
 
 \renewcommand*{\labelnamepunct}{: }
@@ -33,3 +34,5 @@ edition  = {Auflage}
   \printlist{publisher}%
   \usebibmacro{commarelateddate}%
 \newunit}
+
+\DeclareFieldFormat[incollection,inbooks]{title}{\mkbibemph{#1}}
