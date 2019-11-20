@@ -17,6 +17,9 @@ Test \parencite[Seite 5]{2011apologie}
 ```
 
 Dies erzeugt die folgende Sigle:
+
 ![sigle](.github/sigle.png)
+
 und folgendes Literaturverzeichnis:
+
 ![literaturverzeichnis](.github/bibliography.png)
