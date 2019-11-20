@@ -19,14 +19,31 @@
 
 \RequirePackage[style=philosophy-classic,citestyle=authoryear-ibid,publocformat=locpubyear,annotation,dashed=false,ibidtracker=true]{biblatex}
 
+% Redefine certain strings
 \DefineBibliographyStrings{ngerman}{%
 edition  = {Auflage},
 urlseen = {Zugriff am},
 }
 
+% special name format for editors and byauthors
+\DeclareNameFormat{init-given}{%
+  \usebibmacro{name:given-family}
+      {\namepartfamily}
+      {\namepartgiveni}
+      {\namepartprefix}
+      {\namepartsuffix}
+  \usebibmacro{name:andothers}}
+
+% set the above defined format as the default
+\DeclareNameAlias{byauthor}{init-given}
+\DeclareNameAlias{byeditor}{init-given}
+
+% use a : as a seperator between title and author
 \renewcommand*{\labelnamepunct}{: }
+% use a : as a seperator in collections like incollection
+\renewcommand*{\intitlepunct}{: }
 
-
+% correct order of locpubyear
 \renewbibmacro*{locpubyear}{%
   \printlist{location}%
   \iflistundef{publisher}%
@@ -36,4 +53,6 @@ urlseen = {Zugriff am},
   \usebibmacro{commarelateddate}%
 \newunit}
 
-\DeclareFieldFormat[incollection,inbooks]{title}{\mkbibemph{#1}}
+% Fix cursive printing of (book-)titles
+\DeclareFieldFormat[incollection,inbook,book]{title}{#1}
+\DeclareFieldFormat[incollection,inbook,book]{booktitle}{#1}
