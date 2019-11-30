@@ -17,7 +17,7 @@
 
 \ProvidesPackage{philo}
 
-\RequirePackage[style=philosophy-classic,citestyle=authoryear-ibid,publocformat=locpubyear,annotation,dashed=false,ibidtracker=true]{biblatex}
+\RequirePackage[style=philosophy-classic,citestyle=authoryear-ibid,publocformat=locpubyear,annotation,dashed=false,ibidtracker=true,mergedate=false]{biblatex}
 
 % Redefine certain strings
 \DefineBibliographyStrings{ngerman}{%
@@ -43,6 +43,29 @@ urlseen = {Zugriff am},
 % use a : as a seperator in collections like incollection
 \renewcommand*{\intitlepunct}{: }
 
+% print the origdate string after the publisher information
+\renewbibmacro*{commarelateddate}{, \printorigdate}
+\renewbibmacro*{origdata:book}{}
+\newbibmacro*{origdata:incollection}{}
+
+% do not print the nodate string
+\renewbibmacro*{bbx:nodate}{\postsepyear{}}
+
+% do not print the year if it is not defined
+\renewbibmacro*{date+extradate}{%
+\iffieldundef{year}
+  {\usebibmacro{bbx:nodate}}
+  {\postsepyear{\printlabeldateextra}}}%
+
+% use the origdate for 
+\DeclareLabeldate{
+  \field{date}
+  \field{year}
+  \field{eventdate}
+  \field{urldate}
+  \field{origdate}
+}
+
 % correct order of locpubyear
 \renewbibmacro*{locpubyear}{%
   \printlist{location}%
@@ -54,5 +77,5 @@ urlseen = {Zugriff am},
 \newunit}
 
 % Fix cursive printing of (book-)titles
-\DeclareFieldFormat[incollection,inbook,book]{title}{#1}
-\DeclareFieldFormat[incollection,inbook,book]{booktitle}{#1}
+\DeclareFieldFormat{title}{#1}
+\DeclareFieldFormat{booktitle}{#1}
