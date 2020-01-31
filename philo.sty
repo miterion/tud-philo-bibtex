@@ -76,6 +76,6 @@ urlseen = {Zugriff am},
   \usebibmacro{commarelateddate}%
 \newunit}
 
-% Fix cursive printing of (book-)titles
-\DeclareFieldFormat{title}{#1}
+% Fix cursive printing of (book-)titles and in collections
+\DeclareFieldFormat[book,incollection]{title}{#1}
 \DeclareFieldFormat{booktitle}{#1}
