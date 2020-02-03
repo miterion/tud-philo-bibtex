@@ -47,6 +47,7 @@ byeditor = {hrsg\adddotspace v\adddotspace},
 % print the origdate string after the publisher information
 \renewbibmacro*{commarelateddate}{, \printorigdate}
 \renewbibmacro*{origdata:book}{}
+\renewbibmacro*{origdata:inbook}{}
 \newbibmacro*{origdata:incollection}{}
 
 % do not print the nodate string
@@ -74,9 +75,10 @@ byeditor = {hrsg\adddotspace v\adddotspace},
    {\setunit*{\addspace}}
      {\setunit*{\addcolon\space}}%
   \printlist{publisher}%
-  \usebibmacro{commarelateddate}%
+  \iffieldundef{origyear}{\newunit}
+	  {\usebibmacro{commarelateddate}}%
 \newunit}
 
 % Fix cursive printing of (book-)titles and in collections
-\DeclareFieldFormat[book,incollection]{title}{#1}
+\DeclareFieldFormat[book,inbook,incollection]{title}{#1}
 \DeclareFieldFormat{booktitle}{#1}
