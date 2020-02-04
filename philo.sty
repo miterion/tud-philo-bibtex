@@ -18,13 +18,18 @@
 \ProvidesPackage{philo}
 
 \RequirePackage[style=philosophy-classic,citestyle=authoryear-ibid,publocformat=locpubyear,annotation,dashed=false,ibidtracker=true,mergedate=false]{biblatex}
+\RequirePackage{xpatch}
 
 % Redefine certain strings
 \DefineBibliographyStrings{ngerman}{%
 edition  = {Auflage},
 urlseen = {Zugriff am},
 byeditor = {hrsg\adddotspace v\adddotspace},
+editors = {Hg\adddot},
 }
+
+\DeclareDelimFormat{multinamedelim}{\addslash}
+\DeclareDelimAlias{finalnamedelim}{multinamedelim}
 
 % special name format for editors and byauthors
 \DeclareNameFormat{init-given}{%
@@ -67,6 +72,29 @@ byeditor = {hrsg\adddotspace v\adddotspace},
   \field{urldate}
   \field{origdate}
 }
+
+%put editors before titel in incollections
+\xpatchbibmacro{incollection:full}{%
+  \usebibmacro{maintitle+booktitle}%
+  \newunit\newblock
+  \usebibmacro{byeditor+others}%
+}{%
+  \usebibmacro{prebyeditor+others}%
+  \usebibmacro{maintitle+booktitle}%
+  \newunit\newblock
+}%
+{}{}
+
+\newbibmacro*{prebyeditor+others}{%
+ \ifnameundef{editor}
+ {}
+ {\printnames[family-given]{editor}%
+ \setunit{\addspace}%
+ \usebibmacro{editor+othersstrg}%
+ \clearname{editor}%
+ \addcolon\newunit}%
+ \usebibmacro{byeditorx}%
+ \usebibmacro{bytranslator+others}}
 
 % correct order of locpubyear
 \renewbibmacro*{locpubyear}{%
