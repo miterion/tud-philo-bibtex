@@ -111,6 +111,26 @@ editors = {Hg\adddot},
 	  {\usebibmacro{commarelateddate}}%
 \newunit}
 
+% Do not print year twice in articles
+\renewbibmacro*{journal+issuetitle}{%
+  \usebibmacro{journal}%
+  \setunit*{\addspace}%
+  \iffieldundef{series}
+    {}%
+    {\newunit%
+     \printfield{series}\setunit{\addspace}\midsentence}%
+  \usebibmacro{volume+number+eid}%
+  \setunit{\addspace}%
+  \usebibmacro{issue}%
+  \newunit}
+  
+\renewbibmacro*{volume+number+eid}{%
+  \printfield{volume}%
+  \setunit*{\adddot}%
+  \printfield{number}%
+  \setunit{\bibeidpunct}%
+  \printfield{eid}}
+
 % Fix cursive printing of (book-)titles and in collections
 \DeclareFieldFormat[book,inbook,incollection,article]{title}{#1}
 \DeclareFieldFormat{booktitle}{#1}
