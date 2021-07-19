@@ -49,6 +49,10 @@ editors = {Hg\adddot},
 % use a : as a seperator in collections like incollection
 \renewcommand*{\intitlepunct}{: }
 
+\renewbibmacro*{in:}{%
+\bibstring{in}%
+\printunit{\intitlepunct}}
+
 % print the origdate string after the publisher information
 \renewbibmacro*{commarelateddate}{, \printorigdate}
 \renewbibmacro*{origdata:book}{}
@@ -73,7 +77,7 @@ editors = {Hg\adddot},
   \field{origdate}
 }
 
-%put editors before titel in incollections
+%put editors before title in incollections
 \xpatchbibmacro{incollection:full}{%
   \usebibmacro{maintitle+booktitle}%
   \newunit\newblock
@@ -108,5 +112,6 @@ editors = {Hg\adddot},
 \newunit}
 
 % Fix cursive printing of (book-)titles and in collections
-\DeclareFieldFormat[book,inbook,incollection]{title}{#1}
+\DeclareFieldFormat[book,inbook,incollection,article]{title}{#1}
 \DeclareFieldFormat{booktitle}{#1}
+\DeclareFieldFormat[article]{journaltitle}{#1}
